@@ -1,12 +1,9 @@
 //working
 const mongoose = require('mongoose');
-const mongoURI = '127.0.0.1:27017';
-const database = 'iNoteBook';
-
 
 const connectToMongo = async () => {
     try {
-        await mongoose.connect(`mongodb://${mongoURI}/${database}`)
+        await mongoose.connect(`mongodb://${process.env.DATABASE_URI}/${process.env.DATABASE_NAME}`)
 
         console.log("connect to mongo successfully");
 

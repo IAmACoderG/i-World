@@ -6,8 +6,6 @@ const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var fetchuser = require('../middleware/fetchuser');
 
-const jwt_secret = 'GauravIsAGoodB$oy'
-
 const requiredFieldCretiria = [//not required but if you want other wise ignore it
    body('firstName', 'Enter The Valid Name').isLength({ min: 3 }),
    body('lastName', 'Enter The Valid Name').isLength({ min: 3 }),
@@ -45,7 +43,7 @@ router.post('/createUser', requiredFieldCretiria, async (req, res) => {
 
       // Generate the token 
       const data = { user_id: user._id };
-      const authToken = jwt.sign(data, jwt_secret);
+      const authToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET);
       success = true;
 
       //if Everything is Ok Send Success True and Token
@@ -89,7 +87,7 @@ router.post('/login', fieldcreteria, async (req, res) => {
       const data = {
          user_id: user._id
       }
-      const authToken = jwt.sign(data, jwt_secret);
+      const authToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET);
       success = true;
       return res.status(200).json({ success, authToken, userExist: data });
 
